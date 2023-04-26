@@ -1,0 +1,1120 @@
+#+title:     Ectorepo: AMD ROCm
+#+author:    David Conner
+#+email:     noreply@te.xel.io
+
+A list of AMD ROCm repositories. To learn how to use this Repo repo, see the
+the [[https://github.com/ectorepo/ectorepo][ectorepo/ectorepo]] Repo ... repo.
+
+#+begin_src xml :tangle default.xml
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+  <include name="_remotes.xml"/>
+  <project name="pytorch/pytorch" path="pytorch/pytorch" ref="" remote="github" />
+  <include name="rocm_software_platform.xml"/>
+</manifest>
+#+end_src
+
+Check rates:
+
+#+begin_src emacs-lisp :results value code :exports code
+(ghub-graphql-rate-limit)
+#+end_src
+
+To avoid confirmations
+
+#+begin_src emacs-lisp
+(setq-local org-confirm-babel-evaluate nil)
+#+end_src
+
+* rocm
+
+Get the core repositories. These should go into =/data/ecto/ROCmSoftwarePlatform/rocm=.
+
+#+name: nrepos
+#+begin_src emacs-lisp
+100
+#+end_src
+
+#+RESULTS: nrepos
+: 100
+
+For some reason =:var nrepos=200= doesn't properly substitute here, so =:noweb
+yes= is required. However, 100 is the max on sorted results anyways.
+
+#+name: rocm-repos
+#+begin_src emacs-lisp :var nrepos=200 :results replace vector value :exports code :noweb yes
+(ghub-graphql
+ (graphql-query ((organization
+                  :arguments ((login . "ROCmSoftwarePlatform"))
+                  (repositories
+                   :arguments ((first . 100)
+                               (orderBy . ((field . UPDATED_AT)
+                                           (direction . DESC))))
+                   (edges
+                    (node (owner login)
+                          name
+                          (defaultBranchRef prefix name)
+                          url
+                          updatedAt
+                          isArchived)))))))
+#+end_src
+
+#+RESULTS: rocm-repos
+| data | (organization (repositories (edges ((node (owner (login . ROCmSoftwarePlatform)) (name . MIOpen) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/MIOpen) (updatedAt . 2023-04-26T10:44:34Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocWMMA) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocWMMA) (updatedAt . 2023-04-26T04:05:56Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . pytorch-lightning) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/pytorch-lightning) (updatedAt . 2023-04-25T16:39:18Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocBLAS) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocBLAS) (updatedAt . 2023-04-25T04:41:43Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . AMDMIGraphX) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/AMDMIGraphX) (updatedAt . 2023-04-24T13:38:42Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rccl) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rccl) (updatedAt . 2023-04-24T09:51:41Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocThrust) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocThrust) (updatedAt . 2023-04-23T16:03:47Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocSOLVER) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocSOLVER) (updatedAt . 2023-04-23T16:03:47Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . Tensile) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/Tensile) (updatedAt . 2023-04-23T11:50:39Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . pytorch) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/pytorch) (updatedAt . 2023-04-22T16:49:41Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocMLIR) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocMLIR) (updatedAt . 2023-04-22T11:17:48Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . tensorflow-upstream) (defaultBranchRef (prefix . refs/heads/) (name . develop-upstream)) (url . https://github.com/ROCmSoftwarePlatform/tensorflow-upstream) (updatedAt . 2023-04-21T14:57:40Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . TransferBench) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/TransferBench) (updatedAt . 2023-04-20T17:06:37Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipBLASLt) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/hipBLASLt) (updatedAt . 2023-04-20T17:04:42Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . composable_kernel) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/composable_kernel) (updatedAt . 2023-04-20T05:40:53Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . triton) (defaultBranchRef (prefix . refs/heads/) (name . triton-mlir)) (url . https://github.com/ROCmSoftwarePlatform/triton) (updatedAt . 2023-04-19T21:14:09Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . gpufort) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/gpufort) (updatedAt . 2023-04-19T18:58:32Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . Thrust) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/Thrust) (updatedAt . 2023-04-19T08:56:06Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . MIOpenGEMM) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/MIOpenGEMM) (updatedAt . 2023-04-19T08:54:41Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . half) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/half) (updatedAt . 2023-04-19T08:54:17Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipBLAS) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/hipBLAS) (updatedAt . 2023-04-16T13:54:48Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipCUB) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/hipCUB) (updatedAt . 2023-04-16T13:14:38Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipFFT) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/hipFFT) (updatedAt . 2023-04-13T09:28:39Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipfort) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/hipfort) (updatedAt . 2023-04-12T04:39:04Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . aws-ofi-rccl) (defaultBranchRef (prefix . refs/heads/) (name . cxi)) (url . https://github.com/ROCmSoftwarePlatform/aws-ofi-rccl) (updatedAt . 2023-04-11T16:49:13Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocALUTION) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocALUTION) (updatedAt . 2023-04-11T15:21:32Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocFFT) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocFFT) (updatedAt . 2023-04-11T15:18:39Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipSPARSE) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/hipSPARSE) (updatedAt . 2023-04-11T07:55:17Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocSPARSE) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocSPARSE) (updatedAt . 2023-04-11T07:55:12Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . apex) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/apex) (updatedAt . 2023-04-10T09:44:32Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . AITemplate) (defaultBranchRef (prefix . refs/heads/) (name . amd-develop)) (url . https://github.com/ROCmSoftwarePlatform/AITemplate) (updatedAt . 2023-04-09T02:20:17Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocPRIM) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocPRIM) (updatedAt . 2023-04-06T21:17:56Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocHPL) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/rocHPL) (updatedAt . 2023-04-06T12:58:36Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipRAND) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/hipRAND) (updatedAt . 2023-04-05T05:53:24Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipify_torch) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/hipify_torch) (updatedAt . 2023-04-02T21:26:46Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . DeepSpeed) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/DeepSpeed) (updatedAt . 2023-04-02T19:22:06Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . gloo) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/gloo) (updatedAt . 2023-03-28T22:01:07Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . Megatron-LM) (defaultBranchRef (prefix . refs/heads/) (name . rocm_microsoft)) (url . https://github.com/ROCmSoftwarePlatform/Megatron-LM) (updatedAt . 2023-03-22T14:19:39Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipDNN) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/hipDNN) (updatedAt . 2023-03-21T08:57:42Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . DeepSpeed-MII) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/DeepSpeed-MII) (updatedAt . 2023-03-13T03:56:02Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocmProfileData) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/rocmProfileData) (updatedAt . 2023-03-11T06:25:59Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipSOLVER) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/hipSOLVER) (updatedAt . 2023-03-10T17:54:31Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocRAND) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocRAND) (updatedAt . 2023-03-10T17:54:21Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rccl-tests) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/rccl-tests) (updatedAt . 2023-03-07T19:08:01Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . DeepLearningExamples) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/DeepLearningExamples) (updatedAt . 2023-03-05T17:20:14Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . faiss) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/faiss) (updatedAt . 2023-02-22T21:36:46Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . FAMBench) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/FAMBench) (updatedAt . 2023-02-21T21:55:25Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . gputt) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/gputt) (updatedAt . 2023-02-21T12:29:07Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . transformers) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/transformers) (updatedAt . 2023-02-15T17:18:38Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . nvtop) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/nvtop) (updatedAt . 2023-02-10T16:41:51Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . MISA) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/MISA) (updatedAt . 2023-02-09T04:39:47Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . tensorflow-addons) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/tensorflow-addons) (updatedAt . 2023-02-06T05:17:23Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . tensorflow-serving) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/tensorflow-serving) (updatedAt . 2023-01-31T21:07:06Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . FBGEMM) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/FBGEMM) (updatedAt . 2023-01-31T19:17:06Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . MITuna) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/MITuna) (updatedAt . 2023-01-31T17:08:29Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . Gromacs) (defaultBranchRef (prefix . refs/heads/) (name . develop_2022_amd)) (url . https://github.com/ROCmSoftwarePlatform/Gromacs) (updatedAt . 2023-01-31T15:30:39Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . roctracer) (defaultBranchRef (prefix . refs/heads/) (name . amd-master)) (url . https://github.com/ROCmSoftwarePlatform/roctracer) (updatedAt . 2023-01-28T17:28:05Z) (isArchived . t))) ((node (owner (login . ROCmSoftwarePlatform)) (name . cub-hip) (defaultBranchRef (prefix . refs/heads/) (name . hip_port_1.7.4)) (url . https://github.com/ROCmSoftwarePlatform/cub-hip) (updatedAt . 2023-01-28T17:09:34Z) (isArchived . t))) ((node (owner (login . ROCmSoftwarePlatform)) (name . Anakin) (defaultBranchRef (prefix . refs/heads/) (name . developing)) (url . https://github.com/ROCmSoftwarePlatform/Anakin) (updatedAt . 2023-01-28T16:12:17Z) (isArchived . t))) ((node (owner (login . ROCmSoftwarePlatform)) (name . fastbook) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/fastbook) (updatedAt . 2023-01-28T06:20:17Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . eigen) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/eigen) (updatedAt . 2023-01-28T06:17:36Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . MIOpenTensile) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/MIOpenTensile) (updatedAt . 2023-01-28T01:16:52Z) (isArchived . t))) ((node (owner (login . ROCmSoftwarePlatform)) (name . torchrec_private) (defaultBranchRef (prefix . refs/heads/) (name . RenfeiChen-FB-patch-1)) (url . https://github.com/ROCmSoftwarePlatform/torchrec_private) (updatedAt . 2023-01-28T00:16:18Z) (isArchived . t))) ((node (owner (login . ROCmSoftwarePlatform)) (name . actions) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/actions) (updatedAt . 2023-01-27T22:52:46Z) (isArchived . t))) ((node (owner (login . ROCmSoftwarePlatform)) (name . kernl) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/kernl) (updatedAt . 2023-01-24T18:22:14Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . omniperf) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/omniperf) (updatedAt . 2023-01-20T14:46:09Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . mosaicml_benchmarks_internal) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/mosaicml_benchmarks_internal) (updatedAt . 2022-12-20T10:46:31Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocBLAS-Examples) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocBLAS-Examples) (updatedAt . 2022-12-14T23:07:15Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . jax) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/jax) (updatedAt . 2022-12-14T01:35:32Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . MIFin) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/MIFin) (updatedAt . 2022-12-14T00:56:48Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . frugally-deep) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/frugally-deep) (updatedAt . 2022-12-08T17:52:53Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . Paddle) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/Paddle) (updatedAt . 2022-12-08T09:06:17Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . hipCaffe) (defaultBranchRef (prefix . refs/heads/) (name . hip)) (url . https://github.com/ROCmSoftwarePlatform/hipCaffe) (updatedAt . 2022-12-05T11:19:30Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . fastai) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/fastai) (updatedAt . 2022-11-28T05:24:54Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . mxnet) (defaultBranchRef (prefix . refs/heads/) (name . hip_port_v1.4.x)) (url . https://github.com/ROCmSoftwarePlatform/mxnet) (updatedAt . 2022-11-16T17:34:25Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . flash-attention) (defaultBranchRef (prefix . refs/heads/) (name . flash_attention_for_rocm)) (url . https://github.com/ROCmSoftwarePlatform/flash-attention) (updatedAt . 2022-11-16T00:27:21Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . res_embed) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/res_embed) (updatedAt . 2022-11-14T10:11:47Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . OpenFOAM_HMM) (defaultBranchRef (prefix . refs/heads/) (name . suyash/hmm)) (url . https://github.com/ROCmSoftwarePlatform/OpenFOAM_HMM) (updatedAt . 2022-11-04T18:41:41Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . cublasgemm-benchmark) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/cublasgemm-benchmark) (updatedAt . 2022-11-04T05:50:56Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocHPCG) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/rocHPCG) (updatedAt . 2022-11-03T12:14:25Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . FunctionalPlus) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/FunctionalPlus) (updatedAt . 2022-11-01T22:16:12Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . HIPIFY) (defaultBranchRef (prefix . refs/heads/) (name . amd-staging)) (url . https://github.com/ROCmSoftwarePlatform/HIPIFY) (updatedAt . 2022-10-26T12:52:16Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . miopen_cudnn_ops) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/miopen_cudnn_ops) (updatedAt . 2022-09-28T01:05:48Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocLibUtils) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/rocLibUtils) (updatedAt . 2022-09-22T21:11:19Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . libflame) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/libflame) (updatedAt . 2022-09-20T21:28:47Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . libfabric) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/libfabric) (updatedAt . 2022-09-16T14:46:04Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . pytorch_scatter) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/pytorch_scatter) (updatedAt . 2022-09-09T09:02:39Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . blis) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/blis) (updatedAt . 2022-09-08T10:21:08Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . pytorch-micro-benchmarking) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/pytorch-micro-benchmarking) (updatedAt . 2022-08-22T06:28:28Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocALmodels-1) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/rocALmodels-1) (updatedAt . 2022-08-10T10:14:34Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocALmodels) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/rocALmodels) (updatedAt . 2022-08-10T10:14:34Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . migraphx_userguide) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/migraphx_userguide) (updatedAt . 2022-08-10T09:39:19Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . rocComposer) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/rocComposer) (updatedAt . 2022-08-10T01:21:44Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . horovod) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/horovod) (updatedAt . 2022-08-03T13:15:26Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . ROCm) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/ROCm) (updatedAt . 2022-08-02T15:39:07Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . DeepBench) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/DeepBench) (updatedAt . 2022-07-23T23:58:15Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . migraphx-benchmark) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/migraphx-benchmark) (updatedAt . 2022-07-23T01:09:20Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . ucc) (defaultBranchRef (prefix . refs/heads/) (name . develop)) (url . https://github.com/ROCmSoftwarePlatform/ucc) (updatedAt . 2022-07-22T23:03:32Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . nccl-rccl-parser) (defaultBranchRef (prefix . refs/heads/) (name . main)) (url . https://github.com/ROCmSoftwarePlatform/nccl-rccl-parser) (updatedAt . 2022-07-15T22:18:58Z) (isArchived))) ((node (owner (login . ROCmSoftwarePlatform)) (name . MIOpenExamples) (defaultBranchRef (prefix . refs/heads/) (name . master)) (url . https://github.com/ROCmSoftwarePlatform/MIOpenExamples) (updatedAt . 2022-06-27T20:10:48Z) (isArchived)))))) |
+
+Filter the results, generate XML
+
+##+begin_src emacs-lisp :var gqldata=rocm-repos :results value html :noweb-ref "rocm_repos"
+
+#+begin_src emacs-lisp :noweb yes :output verbatim
+<<nrepos()>>
+#+end_src
+
+#+RESULTS:
+: 100
+
+#+begin_src emacs-lisp :var gqldata=rocm-repos :results value code
+(setq gqltest gqldata)
+#+end_src
+
+#+RESULTS:
+#+begin_src emacs-lisp
+((data
+  (organization
+   (repositories
+    (edges
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "MIOpen")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/MIOpen")
+       (updatedAt . "2023-04-26T10:44:34Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocWMMA")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocWMMA")
+       (updatedAt . "2023-04-26T04:05:56Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "pytorch-lightning")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/pytorch-lightning")
+       (updatedAt . "2023-04-25T16:39:18Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocBLAS")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocBLAS")
+       (updatedAt . "2023-04-25T04:41:43Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "AMDMIGraphX")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/AMDMIGraphX")
+       (updatedAt . "2023-04-24T13:38:42Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rccl")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rccl")
+       (updatedAt . "2023-04-24T09:51:41Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocThrust")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocThrust")
+       (updatedAt . "2023-04-23T16:03:47Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocSOLVER")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocSOLVER")
+       (updatedAt . "2023-04-23T16:03:47Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "Tensile")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/Tensile")
+       (updatedAt . "2023-04-23T11:50:39Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "pytorch")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/pytorch")
+       (updatedAt . "2023-04-22T16:49:41Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocMLIR")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocMLIR")
+       (updatedAt . "2023-04-22T11:17:48Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "tensorflow-upstream")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop-upstream"))
+       (url . "https://github.com/ROCmSoftwarePlatform/tensorflow-upstream")
+       (updatedAt . "2023-04-21T14:57:40Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "TransferBench")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/TransferBench")
+       (updatedAt . "2023-04-20T17:06:37Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipBLASLt")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipBLASLt")
+       (updatedAt . "2023-04-20T17:04:42Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "composable_kernel")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/composable_kernel")
+       (updatedAt . "2023-04-20T05:40:53Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "triton")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "triton-mlir"))
+       (url . "https://github.com/ROCmSoftwarePlatform/triton")
+       (updatedAt . "2023-04-19T21:14:09Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "gpufort")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/gpufort")
+       (updatedAt . "2023-04-19T18:58:32Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "Thrust")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/Thrust")
+       (updatedAt . "2023-04-19T08:56:06Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "MIOpenGEMM")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/MIOpenGEMM")
+       (updatedAt . "2023-04-19T08:54:41Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "half")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/half")
+       (updatedAt . "2023-04-19T08:54:17Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipBLAS")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipBLAS")
+       (updatedAt . "2023-04-16T13:54:48Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipCUB")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipCUB")
+       (updatedAt . "2023-04-16T13:14:38Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipFFT")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipFFT")
+       (updatedAt . "2023-04-13T09:28:39Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipfort")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipfort")
+       (updatedAt . "2023-04-12T04:39:04Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "aws-ofi-rccl")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "cxi"))
+       (url . "https://github.com/ROCmSoftwarePlatform/aws-ofi-rccl")
+       (updatedAt . "2023-04-11T16:49:13Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocALUTION")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocALUTION")
+       (updatedAt . "2023-04-11T15:21:32Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocFFT")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocFFT")
+       (updatedAt . "2023-04-11T15:18:39Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipSPARSE")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipSPARSE")
+       (updatedAt . "2023-04-11T07:55:17Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocSPARSE")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocSPARSE")
+       (updatedAt . "2023-04-11T07:55:12Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "apex")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/apex")
+       (updatedAt . "2023-04-10T09:44:32Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "AITemplate")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "amd-develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/AITemplate")
+       (updatedAt . "2023-04-09T02:20:17Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocPRIM")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocPRIM")
+       (updatedAt . "2023-04-06T21:17:56Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocHPL")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocHPL")
+       (updatedAt . "2023-04-06T12:58:36Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipRAND")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipRAND")
+       (updatedAt . "2023-04-05T05:53:24Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipify_torch")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipify_torch")
+       (updatedAt . "2023-04-02T21:26:46Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "DeepSpeed")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/DeepSpeed")
+       (updatedAt . "2023-04-02T19:22:06Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "gloo")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/gloo")
+       (updatedAt . "2023-03-28T22:01:07Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "Megatron-LM")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "rocm_microsoft"))
+       (url . "https://github.com/ROCmSoftwarePlatform/Megatron-LM")
+       (updatedAt . "2023-03-22T14:19:39Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipDNN")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipDNN")
+       (updatedAt . "2023-03-21T08:57:42Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "DeepSpeed-MII")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/DeepSpeed-MII")
+       (updatedAt . "2023-03-13T03:56:02Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocmProfileData")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocmProfileData")
+       (updatedAt . "2023-03-11T06:25:59Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipSOLVER")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipSOLVER")
+       (updatedAt . "2023-03-10T17:54:31Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocRAND")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocRAND")
+       (updatedAt . "2023-03-10T17:54:21Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rccl-tests")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rccl-tests")
+       (updatedAt . "2023-03-07T19:08:01Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "DeepLearningExamples")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/DeepLearningExamples")
+       (updatedAt . "2023-03-05T17:20:14Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "faiss")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/faiss")
+       (updatedAt . "2023-02-22T21:36:46Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "FAMBench")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/FAMBench")
+       (updatedAt . "2023-02-21T21:55:25Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "gputt")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/gputt")
+       (updatedAt . "2023-02-21T12:29:07Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "transformers")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/transformers")
+       (updatedAt . "2023-02-15T17:18:38Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "nvtop")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/nvtop")
+       (updatedAt . "2023-02-10T16:41:51Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "MISA")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/MISA")
+       (updatedAt . "2023-02-09T04:39:47Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "tensorflow-addons")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/tensorflow-addons")
+       (updatedAt . "2023-02-06T05:17:23Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "tensorflow-serving")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/tensorflow-serving")
+       (updatedAt . "2023-01-31T21:07:06Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "FBGEMM")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/FBGEMM")
+       (updatedAt . "2023-01-31T19:17:06Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "MITuna")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/MITuna")
+       (updatedAt . "2023-01-31T17:08:29Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "Gromacs")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop_2022_amd"))
+       (url . "https://github.com/ROCmSoftwarePlatform/Gromacs")
+       (updatedAt . "2023-01-31T15:30:39Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "roctracer")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "amd-master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/roctracer")
+       (updatedAt . "2023-01-28T17:28:05Z")
+       (isArchived . t)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "cub-hip")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "hip_port_1.7.4"))
+       (url . "https://github.com/ROCmSoftwarePlatform/cub-hip")
+       (updatedAt . "2023-01-28T17:09:34Z")
+       (isArchived . t)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "Anakin")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "developing"))
+       (url . "https://github.com/ROCmSoftwarePlatform/Anakin")
+       (updatedAt . "2023-01-28T16:12:17Z")
+       (isArchived . t)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "fastbook")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/fastbook")
+       (updatedAt . "2023-01-28T06:20:17Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "eigen")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/eigen")
+       (updatedAt . "2023-01-28T06:17:36Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "MIOpenTensile")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/MIOpenTensile")
+       (updatedAt . "2023-01-28T01:16:52Z")
+       (isArchived . t)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "torchrec_private")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "RenfeiChen-FB-patch-1"))
+       (url . "https://github.com/ROCmSoftwarePlatform/torchrec_private")
+       (updatedAt . "2023-01-28T00:16:18Z")
+       (isArchived . t)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "actions")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/actions")
+       (updatedAt . "2023-01-27T22:52:46Z")
+       (isArchived . t)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "kernl")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/kernl")
+       (updatedAt . "2023-01-24T18:22:14Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "omniperf")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/omniperf")
+       (updatedAt . "2023-01-20T14:46:09Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "mosaicml_benchmarks_internal")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/mosaicml_benchmarks_internal")
+       (updatedAt . "2022-12-20T10:46:31Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocBLAS-Examples")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocBLAS-Examples")
+       (updatedAt . "2022-12-14T23:07:15Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "jax")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/jax")
+       (updatedAt . "2022-12-14T01:35:32Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "MIFin")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/MIFin")
+       (updatedAt . "2022-12-14T00:56:48Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "frugally-deep")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/frugally-deep")
+       (updatedAt . "2022-12-08T17:52:53Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "Paddle")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/Paddle")
+       (updatedAt . "2022-12-08T09:06:17Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "hipCaffe")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "hip"))
+       (url . "https://github.com/ROCmSoftwarePlatform/hipCaffe")
+       (updatedAt . "2022-12-05T11:19:30Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "fastai")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/fastai")
+       (updatedAt . "2022-11-28T05:24:54Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "mxnet")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "hip_port_v1.4.x"))
+       (url . "https://github.com/ROCmSoftwarePlatform/mxnet")
+       (updatedAt . "2022-11-16T17:34:25Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "flash-attention")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "flash_attention_for_rocm"))
+       (url . "https://github.com/ROCmSoftwarePlatform/flash-attention")
+       (updatedAt . "2022-11-16T00:27:21Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "res_embed")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/res_embed")
+       (updatedAt . "2022-11-14T10:11:47Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "OpenFOAM_HMM")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "suyash/hmm"))
+       (url . "https://github.com/ROCmSoftwarePlatform/OpenFOAM_HMM")
+       (updatedAt . "2022-11-04T18:41:41Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "cublasgemm-benchmark")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/cublasgemm-benchmark")
+       (updatedAt . "2022-11-04T05:50:56Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocHPCG")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocHPCG")
+       (updatedAt . "2022-11-03T12:14:25Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "FunctionalPlus")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/FunctionalPlus")
+       (updatedAt . "2022-11-01T22:16:12Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "HIPIFY")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "amd-staging"))
+       (url . "https://github.com/ROCmSoftwarePlatform/HIPIFY")
+       (updatedAt . "2022-10-26T12:52:16Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "miopen_cudnn_ops")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/miopen_cudnn_ops")
+       (updatedAt . "2022-09-28T01:05:48Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocLibUtils")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocLibUtils")
+       (updatedAt . "2022-09-22T21:11:19Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "libflame")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/libflame")
+       (updatedAt . "2022-09-20T21:28:47Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "libfabric")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/libfabric")
+       (updatedAt . "2022-09-16T14:46:04Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "pytorch_scatter")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/pytorch_scatter")
+       (updatedAt . "2022-09-09T09:02:39Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "blis")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/blis")
+       (updatedAt . "2022-09-08T10:21:08Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "pytorch-micro-benchmarking")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/pytorch-micro-benchmarking")
+       (updatedAt . "2022-08-22T06:28:28Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocALmodels-1")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocALmodels-1")
+       (updatedAt . "2022-08-10T10:14:34Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocALmodels")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocALmodels")
+       (updatedAt . "2022-08-10T10:14:34Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "migraphx_userguide")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/migraphx_userguide")
+       (updatedAt . "2022-08-10T09:39:19Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "rocComposer")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/rocComposer")
+       (updatedAt . "2022-08-10T01:21:44Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "horovod")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/horovod")
+       (updatedAt . "2022-08-03T13:15:26Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "ROCm")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/ROCm")
+       (updatedAt . "2022-08-02T15:39:07Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "DeepBench")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/DeepBench")
+       (updatedAt . "2022-07-23T23:58:15Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "migraphx-benchmark")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/migraphx-benchmark")
+       (updatedAt . "2022-07-23T01:09:20Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "ucc")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "develop"))
+       (url . "https://github.com/ROCmSoftwarePlatform/ucc")
+       (updatedAt . "2022-07-22T23:03:32Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "nccl-rccl-parser")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "main"))
+       (url . "https://github.com/ROCmSoftwarePlatform/nccl-rccl-parser")
+       (updatedAt . "2022-07-15T22:18:58Z")
+       (isArchived)))
+     ((node
+       (owner
+        (login . "ROCmSoftwarePlatform"))
+       (name . "MIOpenExamples")
+       (defaultBranchRef
+        (prefix . "refs/heads/")
+        (name . "master"))
+       (url . "https://github.com/ROCmSoftwarePlatform/MIOpenExamples")
+       (updatedAt . "2022-06-27T20:10:48Z")
+       (isArchived))))))))
+#+end_src
+
+Filter the results, generate XML
+
+#+name: rocm-core
+#+begin_src emacs-lisp :var gqldata=rocm-repos :output
+(thread-first
+  (thread-last
+    (a-get* (nthcdr 0 gqldata) 'data 'organization 'repositories 'edges)
+    (mapcar (lambda (el) (a-get* el 'node)))
+    (seq-filter (lambda (el) (not (a-get* el 'isArchived))))
+    (mapcar (lambda (el)
+              (let* (;; (defaultBranchRef (a-get* 'defaultBranchRef))
+                     (path (a-get* el 'name))
+                     (ref (concat (a-get* el 'defaultBranchRef 'prefix)
+                                  (a-get* el 'defaultBranchRef 'name)))
+                     (name (string-join (list (a-get* el 'owner 'login)
+                                              (a-get* el 'name)) "/")))
+                (concat "<project"
+                        " name=\"" name
+                        "\" path=\"" path
+                        "\" ref=\"" ref "\" remote=\"github\" />")))))
+  (cl-sort 'string-lessp :key 'downcase)
+  (string-join "\n"))
+#+end_src
+
+Generate =rocm_software_platform.xml=
+
+#+begin_src xml :tangle rocm_software_platform.xml :noweb yes
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+  <<rocm-core(rocm-repos)>>
+</manifest>
+#+end_src
+

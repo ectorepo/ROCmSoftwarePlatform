@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+  <include name="_remotes.xml"/>
+  <project name="pytorch/pytorch" path="pytorch/pytorch" ref="" remote="github" />
+  <include name="rocm_software_platform.xml"/>
+</manifest>
