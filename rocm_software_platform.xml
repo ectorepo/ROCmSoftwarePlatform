@@ -1,97 +1,97 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
-  <project name="ROCmSoftwarePlatform/AITemplate" path="AITemplate" ref="refs/heads/amd-develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/AMDMIGraphX" path="AMDMIGraphX" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/apex" path="apex" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/aws-ofi-rccl" path="aws-ofi-rccl" ref="refs/heads/cxi" remote="github" />
-  <project name="ROCmSoftwarePlatform/blis" path="blis" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/composable_kernel" path="composable_kernel" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/cublasgemm-benchmark" path="cublasgemm-benchmark" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/DeepBench" path="DeepBench" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/DeepLearningExamples" path="DeepLearningExamples" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/DeepSpeed" path="DeepSpeed" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/DeepSpeed-MII" path="DeepSpeed-MII" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/eigen" path="eigen" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/faiss" path="faiss" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/FAMBench" path="FAMBench" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/fastai" path="fastai" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/fastbook" path="fastbook" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/FBGEMM" path="FBGEMM" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/flash-attention" path="flash-attention" ref="refs/heads/flash_attention_for_rocm" remote="github" />
-  <project name="ROCmSoftwarePlatform/frugally-deep" path="frugally-deep" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/FunctionalPlus" path="FunctionalPlus" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/gloo" path="gloo" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/gpufort" path="gpufort" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/gputt" path="gputt" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/Gromacs" path="Gromacs" ref="refs/heads/develop_2022_amd" remote="github" />
-  <project name="ROCmSoftwarePlatform/half" path="half" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipBLAS" path="hipBLAS" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipBLASLt" path="hipBLASLt" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipCaffe" path="hipCaffe" ref="refs/heads/hip" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipCUB" path="hipCUB" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipDNN" path="hipDNN" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipFFT" path="hipFFT" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipfort" path="hipfort" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/HIPIFY" path="HIPIFY" ref="refs/heads/amd-staging" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipify_torch" path="hipify_torch" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipRAND" path="hipRAND" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipSOLVER" path="hipSOLVER" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/hipSPARSE" path="hipSPARSE" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/horovod" path="horovod" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/jax" path="jax" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/kernl" path="kernl" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/libfabric" path="libfabric" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/libflame" path="libflame" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/Megatron-LM" path="Megatron-LM" ref="refs/heads/rocm_microsoft" remote="github" />
-  <project name="ROCmSoftwarePlatform/MIFin" path="MIFin" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/migraphx-benchmark" path="migraphx-benchmark" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/migraphx_userguide" path="migraphx_userguide" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/MIOpen" path="MIOpen" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/miopen_cudnn_ops" path="miopen_cudnn_ops" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/MIOpenExamples" path="MIOpenExamples" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/MIOpenGEMM" path="MIOpenGEMM" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/MISA" path="MISA" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/MITuna" path="MITuna" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/mosaicml_benchmarks_internal" path="mosaicml_benchmarks_internal" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/mxnet" path="mxnet" ref="refs/heads/hip_port_v1.4.x" remote="github" />
-  <project name="ROCmSoftwarePlatform/nccl-rccl-parser" path="nccl-rccl-parser" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/nvtop" path="nvtop" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/omniperf" path="omniperf" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/OpenFOAM_HMM" path="OpenFOAM_HMM" ref="refs/heads/suyash/hmm" remote="github" />
-  <project name="ROCmSoftwarePlatform/Paddle" path="Paddle" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/pytorch" path="pytorch" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/pytorch-lightning" path="pytorch-lightning" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/pytorch-micro-benchmarking" path="pytorch-micro-benchmarking" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/pytorch_scatter" path="pytorch_scatter" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/rccl" path="rccl" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rccl-tests" path="rccl-tests" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/res_embed" path="res_embed" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocALmodels" path="rocALmodels" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocALmodels-1" path="rocALmodels-1" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocALUTION" path="rocALUTION" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocBLAS" path="rocBLAS" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocBLAS-Examples" path="rocBLAS-Examples" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocComposer" path="rocComposer" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocFFT" path="rocFFT" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocHPCG" path="rocHPCG" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocHPL" path="rocHPL" ref="refs/heads/main" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocLibUtils" path="rocLibUtils" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/ROCm" path="ROCm" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocMLIR" path="rocMLIR" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocmProfileData" path="rocmProfileData" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocPRIM" path="rocPRIM" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocRAND" path="rocRAND" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocSOLVER" path="rocSOLVER" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocSPARSE" path="rocSPARSE" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocThrust" path="rocThrust" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/rocWMMA" path="rocWMMA" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/Tensile" path="Tensile" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/tensorflow-addons" path="tensorflow-addons" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/tensorflow-serving" path="tensorflow-serving" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/tensorflow-upstream" path="tensorflow-upstream" ref="refs/heads/develop-upstream" remote="github" />
-  <project name="ROCmSoftwarePlatform/Thrust" path="Thrust" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/TransferBench" path="TransferBench" ref="refs/heads/develop" remote="github" />
-  <project name="ROCmSoftwarePlatform/transformers" path="transformers" ref="refs/heads/master" remote="github" />
-  <project name="ROCmSoftwarePlatform/triton" path="triton" ref="refs/heads/triton-mlir" remote="github" />
-  <project name="ROCmSoftwarePlatform/ucc" path="ucc" ref="refs/heads/develop" remote="github" />
+  <project name="ROCmSoftwarePlatform/AITemplate" path="AITemplate" revision="refs/heads/amd-develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/AMDMIGraphX" path="AMDMIGraphX" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/apex" path="apex" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/aws-ofi-rccl" path="aws-ofi-rccl" revision="refs/heads/cxi" remote="github"/>
+  <project name="ROCmSoftwarePlatform/blis" path="blis" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/composable_kernel" path="composable_kernel" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/cublasgemm-benchmark" path="cublasgemm-benchmark" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/DeepBench" path="DeepBench" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/DeepLearningExamples" path="DeepLearningExamples" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/DeepSpeed" path="DeepSpeed" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/DeepSpeed-MII" path="DeepSpeed-MII" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/eigen" path="eigen" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/faiss" path="faiss" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/FAMBench" path="FAMBench" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/fastai" path="fastai" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/fastbook" path="fastbook" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/FBGEMM" path="FBGEMM" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/flash-attention" path="flash-attention" revision="refs/heads/flash_attention_for_rocm" remote="github"/>
+  <project name="ROCmSoftwarePlatform/frugally-deep" path="frugally-deep" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/FunctionalPlus" path="FunctionalPlus" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/gloo" path="gloo" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/gpufort" path="gpufort" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/gputt" path="gputt" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/Gromacs" path="Gromacs" revision="refs/heads/develop_2022_amd" remote="github"/>
+  <project name="ROCmSoftwarePlatform/half" path="half" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipBLAS" path="hipBLAS" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipBLASLt" path="hipBLASLt" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipCaffe" path="hipCaffe" revision="refs/heads/hip" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipCUB" path="hipCUB" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipDNN" path="hipDNN" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipFFT" path="hipFFT" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipfort" path="hipfort" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/HIPIFY" path="HIPIFY" revision="refs/heads/amd-staging" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipify_torch" path="hipify_torch" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipRAND" path="hipRAND" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipSOLVER" path="hipSOLVER" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/hipSPARSE" path="hipSPARSE" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/horovod" path="horovod" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/jax" path="jax" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/kernl" path="kernl" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/libfabric" path="libfabric" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/libflame" path="libflame" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/Megatron-LM" path="Megatron-LM" revision="refs/heads/rocm_microsoft" remote="github"/>
+  <project name="ROCmSoftwarePlatform/MIFin" path="MIFin" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/migraphx-benchmark" path="migraphx-benchmark" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/migraphx_userguide" path="migraphx_userguide" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/MIOpen" path="MIOpen" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/miopen_cudnn_ops" path="miopen_cudnn_ops" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/MIOpenExamples" path="MIOpenExamples" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/MIOpenGEMM" path="MIOpenGEMM" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/MISA" path="MISA" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/MITuna" path="MITuna" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/mosaicml_benchmarks_internal" path="mosaicml_benchmarks_internal" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/mxnet" path="mxnet" revision="refs/heads/hip_port_v1.4.x" remote="github"/>
+  <project name="ROCmSoftwarePlatform/nccl-rccl-parser" path="nccl-rccl-parser" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/nvtop" path="nvtop" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/omniperf" path="omniperf" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/OpenFOAM_HMM" path="OpenFOAM_HMM" revision="refs/heads/suyash/hmm" remote="github"/>
+  <project name="ROCmSoftwarePlatform/Paddle" path="Paddle" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/pytorch" path="pytorch" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/pytorch-lightning" path="pytorch-lightning" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/pytorch-micro-benchmarking" path="pytorch-micro-benchmarking" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/pytorch_scatter" path="pytorch_scatter" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rccl" path="rccl" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rccl-tests" path="rccl-tests" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/res_embed" path="res_embed" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocALmodels" path="rocALmodels" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocALmodels-1" path="rocALmodels-1" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocALUTION" path="rocALUTION" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocBLAS" path="rocBLAS" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocBLAS-Examples" path="rocBLAS-Examples" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocComposer" path="rocComposer" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocFFT" path="rocFFT" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocHPCG" path="rocHPCG" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocHPL" path="rocHPL" revision="refs/heads/main" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocLibUtils" path="rocLibUtils" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/ROCm" path="ROCm" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocMLIR" path="rocMLIR" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocmProfileData" path="rocmProfileData" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocPRIM" path="rocPRIM" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocRAND" path="rocRAND" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocSOLVER" path="rocSOLVER" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocSPARSE" path="rocSPARSE" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocThrust" path="rocThrust" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/rocWMMA" path="rocWMMA" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/Tensile" path="Tensile" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/tensorflow-addons" path="tensorflow-addons" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/tensorflow-serving" path="tensorflow-serving" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/tensorflow-upstream" path="tensorflow-upstream" revision="refs/heads/develop-upstream" remote="github"/>
+  <project name="ROCmSoftwarePlatform/Thrust" path="Thrust" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/TransferBench" path="TransferBench" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCmSoftwarePlatform/transformers" path="transformers" revision="refs/heads/master" remote="github"/>
+  <project name="ROCmSoftwarePlatform/triton" path="triton" revision="refs/heads/triton-mlir" remote="github"/>
+  <project name="ROCmSoftwarePlatform/ucc" path="ucc" revision="refs/heads/develop" remote="github"/>
 </manifest>

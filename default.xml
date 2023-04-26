@@ -2,6 +2,5 @@
 <manifest>
   <include name="_remotes.xml"/>
   <default remote="github" sync-j="8" revision="refs/heads/master"/>
-  <project name="pytorch/pytorch" path="pytorch/pytorch" ref="" remote="github" />
   <include name="rocm_software_platform.xml"/>
 </manifest>
