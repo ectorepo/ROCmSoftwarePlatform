@@ -9,6 +9,7 @@ the [[https://github.com/ectorepo/ectorepo][ectorepo/ectorepo]] Repo ... repo.
 <?xml version="1.0" encoding="utf-8"?>
 <manifest>
   <include name="_remotes.xml"/>
+  <default remote="github" sync-j="8" revision="refs/heads/master"/>
   <project name="pytorch/pytorch" path="pytorch/pytorch" ref="" remote="github" />
   <include name="rocm_software_platform.xml"/>
 </manifest>
