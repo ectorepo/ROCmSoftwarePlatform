@@ -7,7 +7,6 @@ A list of AMD ROCm repositories. To learn how to use this Repo repo, see the
 the [[https://github.com/ectorepo/ectorepo][ectorepo/ectorepo]] Repo ... repo.
 
 #+begin_src xml :tangle default.xml
-<?xml version="1.0" encoding="utf-8"?>
 <manifest>
   <include name="_remotes.xml"/>
   <default remote="github" sync-j="8" revision="refs/heads/master"/>
@@ -1206,7 +1205,6 @@ Filter the results, generate XML
 Generate =rocm_software_platform.xml=
 
 #+begin_src xml :tangle rocm_software_platform.xml :noweb yes
-<?xml version="1.0" encoding="utf-8"?>
 <manifest>
   <<rocm-core(rocm-repos)>>
 </manifest>
