@@ -43,6 +43,140 @@ yes= is required. However, 100 is the max on sorted results anyways.
 
 * ROCm
 
+The list of repos will cycle (100 results). Retain these random libs for a minute:
+
+| ROCm/amd_matrix_instruction_calculator | query device to calculate flops rate, capabilities |
+| ROCm/gsplat                            | guassian splatting                                |
+
+
+Clone bundle sizes
+
+#+name: rocmBundles
+#+begin_src emacs-lisp :var nrepos=100 :results value table :exports code :noweb yes
+(setq -gql-data
+      (ghub-graphql
+       (graphql-query ((organization
+                        :arguments ((login . "ROCm"))
+                        (repositories
+                         :arguments ((first . 100)
+                                     (orderBy . ((field . UPDATED_AT)
+                                                 (direction . DESC))))
+                         (edges
+                          (node (owner login)
+                                name
+                                (defaultBranchRef prefix name)
+                                url
+                                updatedAt
+                                diskUsage
+                                isFork
+                                isArchived))))))))
+
+(thread-first
+  (thread-last
+    (a-get* (nthcdr 0 -gql-data) 'data 'organization 'repositories 'edges)
+    (mapcar (lambda (el) (a-get* el 'node)))
+
+    ;; filter archived repos
+    (seq-filter (lambda (el) (not (a-get* el 'isFork))))
+    (seq-filter (lambda (el) (not (a-get* el 'isArchived))))
+    (mapcar (lambda (el)
+              (flatten-list
+               (list
+                (a-get* el 'diskUsage)
+                (a-get* el 'owner 'login)
+                (a-get* el 'defaultBranchRef 'prefix)
+                (a-get* el 'defaultBranchRef 'name)
+                (mapcar (lambda (repo-keys)
+                          (a-get* el repo-keys))
+                        '(name
+                          updatedAt
+                          isFork
+                          isArchived
+                          url))))))))
+#+end_src
+
+#+RESULTS: rocmBundles
+| 5966336 | ROCm | refs/heads/ | develop                | rocm-libraries             | 2026-05-06T16:55:01Z | https://github.com/ROCm/rocm-libraries             |
+|   95303 | ROCm | refs/heads/ | main                   | gpu-operator               | 2026-05-06T16:51:58Z | https://github.com/ROCm/gpu-operator               |
+|  161501 | ROCm | refs/heads/ | develop                | MIVisionX                  | 2026-05-06T16:47:31Z | https://github.com/ROCm/MIVisionX                  |
+| 2480174 | ROCm | refs/heads/ | develop                | rocm-systems               | 2026-05-06T16:37:06Z | https://github.com/ROCm/rocm-systems               |
+|   23922 | ROCm | refs/heads/ | main                   | TheRock                    | 2026-05-06T16:22:54Z | https://github.com/ROCm/TheRock                    |
+|  209247 | ROCm | refs/heads/ | main                   | aiter                      | 2026-05-06T16:22:45Z | https://github.com/ROCm/aiter                      |
+|   16472 | ROCm | refs/heads/ | main                   | ATOM                       | 2026-05-06T16:11:40Z | https://github.com/ROCm/ATOM                       |
+|  519535 | ROCm | refs/heads/ | amd-staging            | ROCgdb                     | 2026-05-06T15:52:52Z | https://github.com/ROCm/ROCgdb                     |
+|    4127 | ROCm | refs/heads/ | main                   | cvs                        | 2026-05-06T15:41:27Z | https://github.com/ROCm/cvs                        |
+|   37001 | ROCm | refs/heads/ | main                   | roc-optiq                  | 2026-05-06T15:26:09Z | https://github.com/ROCm/roc-optiq                  |
+|   20444 | ROCm | refs/heads/ | amd-develop            | HIPIFY                     | 2026-05-06T15:23:16Z | https://github.com/ROCm/HIPIFY                     |
+|   42493 | ROCm | refs/heads/ | develop                | clr                        | 2026-05-06T15:15:22Z | https://github.com/ROCm/clr                        |
+|   23340 | ROCm | refs/heads/ | amd-staging            | SPIRV-LLVM-Translator      | 2026-05-06T15:04:19Z | https://github.com/ROCm/SPIRV-LLVM-Translator      |
+|   23839 | ROCm | refs/heads/ | develop                | rocCV                      | 2026-05-06T14:07:07Z | https://github.com/ROCm/rocCV                      |
+|   97290 | ROCm | refs/heads/ | develop                | composable_kernel          | 2026-05-06T13:29:28Z | https://github.com/ROCm/composable_kernel          |
+|    1169 | ROCm | refs/heads/ | develop                | TransferBench              | 2026-05-06T12:30:40Z | https://github.com/ROCm/TransferBench              |
+|     308 | ROCm | refs/heads/ | main                   | pyrsmi                     | 2026-05-06T11:35:55Z | https://github.com/ROCm/pyrsmi                     |
+|   28158 | ROCm | refs/heads/ | develop                | librocdxg                  | 2026-05-06T10:43:24Z | https://github.com/ROCm/librocdxg                  |
+|  147060 | ROCm | refs/heads/ | develop                | ROCm                       | 2026-05-06T10:05:40Z | https://github.com/ROCm/ROCm                       |
+|   16754 | ROCm | refs/heads/ | main                   | mori                       | 2026-05-06T09:56:58Z | https://github.com/ROCm/mori                       |
+|   11789 | ROCm | refs/heads/ | develop                | hip-tests                  | 2026-05-06T09:22:57Z | https://github.com/ROCm/hip-tests                  |
+|    8170 | ROCm | refs/heads/ | main                   | FlyDSL                     | 2026-05-06T08:59:44Z | https://github.com/ROCm/FlyDSL                     |
+|   28538 | ROCm | refs/heads/ | develop                | hip                        | 2026-05-06T05:54:07Z | https://github.com/ROCm/hip                        |
+|    1162 | ROCm | refs/heads/ | main                   | spur                       | 2026-05-06T05:20:18Z | https://github.com/ROCm/spur                       |
+|    9819 | ROCm | refs/heads/ | master                 | ROCmValidationSuite        | 2026-05-06T05:16:16Z | https://github.com/ROCm/ROCmValidationSuite        |
+|   30852 | ROCm | refs/heads/ | dev                    | TransformerEngine          | 2026-05-06T04:08:30Z | https://github.com/ROCm/TransformerEngine          |
+|  176451 | ROCm | refs/heads/ | develop                | AMDMIGraphX                | 2026-05-06T03:47:29Z | https://github.com/ROCm/AMDMIGraphX                |
+|    1168 | ROCm | refs/heads/ | main                   | rocm-installer-runfile     | 2026-05-06T01:41:43Z | https://github.com/ROCm/rocm-installer-runfile     |
+|     556 | ROCm | refs/heads/ | main                   | kernel-module-management   | 2026-05-05T23:45:13Z | https://github.com/ROCm/kernel-module-management   |
+|   20022 | ROCm | refs/heads/ | main                   | device-config-manager      | 2026-05-05T22:33:54Z | https://github.com/ROCm/device-config-manager      |
+|  161039 | ROCm | refs/heads/ | master                 | rocm-jax                   | 2026-05-05T22:20:04Z | https://github.com/ROCm/rocm-jax                   |
+| 1379577 | ROCm | refs/heads/ | main                   | device-metrics-exporter    | 2026-05-05T19:55:53Z | https://github.com/ROCm/device-metrics-exporter    |
+|   20083 | ROCm | refs/heads/ | amd-mainline           | amdsmi                     | 2026-05-05T19:38:58Z | https://github.com/ROCm/amdsmi                     |
+| 2094050 | ROCm | refs/heads/ | develop                | rocMLIR                    | 2026-05-05T19:23:41Z | https://github.com/ROCm/rocMLIR                    |
+| 2063758 | ROCm | refs/heads/ | release                | rocm-blogs                 | 2026-05-05T16:45:47Z | https://github.com/ROCm/rocm-blogs                 |
+|   13982 | ROCm | refs/heads/ | main                   | hrx                        | 2026-05-05T15:34:07Z | https://github.com/ROCm/hrx                        |
+|     138 | ROCm | refs/heads/ | main                   | repo-digest                | 2026-05-05T09:22:49Z | https://github.com/ROCm/repo-digest                |
+|   15824 | ROCm | refs/heads/ | aomp-dev               | aomp                       | 2026-05-05T09:20:03Z | https://github.com/ROCm/aomp                       |
+|    3529 | ROCm | refs/heads/ | develop                | amdgpu-docs                | 2026-05-04T20:47:21Z | https://github.com/ROCm/amdgpu-docs                |
+|   27443 | ROCm | refs/heads/ | main                   | gpuaidev                   | 2026-05-04T18:49:38Z | https://github.com/ROCm/gpuaidev                   |
+|   43760 | ROCm | refs/heads/ | develop                | rocAL                      | 2026-05-04T18:30:57Z | https://github.com/ROCm/rocAL                      |
+|   15665 | ROCm | refs/heads/ | develop                | rocm-install-on-linux      | 2026-05-04T18:30:24Z | https://github.com/ROCm/rocm-install-on-linux      |
+|    4039 | ROCm | refs/heads/ | develop_deprecated     | hipDNN                     | 2026-05-04T17:23:40Z | https://github.com/ROCm/hipDNN                     |
+|    1226 | ROCm | refs/heads/ | amd-mainline           | rocm_bandwidth_test        | 2026-05-04T17:11:37Z | https://github.com/ROCm/rocm_bandwidth_test        |
+|   86219 | ROCm | refs/heads/ | amd-staging_deprecated | ROCR-Runtime               | 2026-05-04T15:18:31Z | https://github.com/ROCm/ROCR-Runtime               |
+| 3714032 | ROCm | refs/heads/ | master                 | amdgpu                     | 2026-05-04T15:18:00Z | https://github.com/ROCm/amdgpu                     |
+|   18157 | ROCm | refs/heads/ | develop_deprecated     | rccl                       | 2026-05-04T15:16:23Z | https://github.com/ROCm/rccl                       |
+| 1749522 | ROCm | refs/heads/ | develop_deprecated     | MIOpen                     | 2026-05-04T15:16:06Z | https://github.com/ROCm/MIOpen                     |
+|   11596 | ROCm | refs/heads/ | main                   | gfx950-gluon-tutorials     | 2026-05-04T13:52:56Z | https://github.com/ROCm/gfx950-gluon-tutorials     |
+|  151230 | ROCm | refs/heads/ | develop                | amd-rocm-programming-guide | 2026-05-04T11:36:53Z | https://github.com/ROCm/amd-rocm-programming-guide |
+|   37783 | ROCm | refs/heads/ | release/1.5.3b2        | gsplat                     | 2026-05-04T10:54:15Z | https://github.com/ROCm/gsplat                     |
+|    2492 | ROCm | refs/heads/ | main                   | rocm-xio                   | 2026-05-03T16:56:05Z | https://github.com/ROCm/rocm-xio                   |
+|    9934 | ROCm | refs/heads/ | main                   | k8s-gpu-dra-driver         | 2026-05-03T16:25:48Z | https://github.com/ROCm/k8s-gpu-dra-driver         |
+|    4237 | ROCm | refs/heads/ | develop                | rocm-docs-core             | 2026-05-03T14:51:26Z | https://github.com/ROCm/rocm-docs-core             |
+|   64307 | ROCm | refs/heads/ | main                   | iris                       | 2026-05-02T20:59:23Z | https://github.com/ROCm/iris                       |
+|     260 | ROCm | refs/heads/ | master                 | ROCm-docker                | 2026-05-02T20:58:54Z | https://github.com/ROCm/ROCm-docker                |
+|  210153 | ROCm | refs/heads/ | develop                | rpp                        | 2026-05-02T20:58:01Z | https://github.com/ROCm/rpp                        |
+|    7842 | ROCm | refs/heads/ | main                   | gpufort                    | 2026-05-02T20:57:22Z | https://github.com/ROCm/gpufort                    |
+|   16038 | ROCm | refs/heads/ | master                 | k8s-device-plugin          | 2026-05-02T20:56:48Z | https://github.com/ROCm/k8s-device-plugin          |
+|    4661 | ROCm | refs/heads/ | develop                | rocm-install-on-windows    | 2026-05-02T18:41:26Z | https://github.com/ROCm/rocm-install-on-windows    |
+|     296 | ROCm | refs/heads/ | rocm                   | half                       | 2026-05-02T16:35:27Z | https://github.com/ROCm/half                       |
+|     597 | ROCm | refs/heads/ | main                   | container-toolkit          | 2026-05-02T13:30:54Z | https://github.com/ROCm/container-toolkit          |
+|    9764 | ROCm | refs/heads/ | develop_deprecated     | rocFFT                     | 2026-05-02T06:01:20Z | https://github.com/ROCm/rocFFT                     |
+|   71276 | ROCm | refs/heads/ | main                   | aorta                      | 2026-05-01T14:24:39Z | https://github.com/ROCm/aorta                      |
+|    6375 | ROCm | refs/heads/ | main                   | k8s-network-node-labeller  | 2026-04-30T22:12:26Z | https://github.com/ROCm/k8s-network-node-labeller  |
+|     338 | ROCm | refs/heads/ | main                   | rocHPL                     | 2026-04-30T14:35:54Z | https://github.com/ROCm/rocHPL                     |
+|   12122 | ROCm | refs/heads/ | develop_deprecated     | rocprofiler-systems        | 2026-04-30T09:40:19Z | https://github.com/ROCm/rocprofiler-systems        |
+|    6427 | ROCm | refs/heads/ | amd-staging            | omnitrace                  | 2026-04-30T09:37:45Z | https://github.com/ROCm/omnitrace                  |
+|    2798 | ROCm | refs/heads/ | amd-staging            | ROCdbgapi                  | 2026-04-29T22:19:18Z | https://github.com/ROCm/ROCdbgapi                  |
+|    1273 | ROCm | refs/heads/ | main                   | rockbuilder                | 2026-04-29T21:48:15Z | https://github.com/ROCm/rockbuilder                |
+|    1459 | ROCm | refs/heads/ | release/0.1.1          | hipThreads                 | 2026-04-29T19:06:56Z | https://github.com/ROCm/hipThreads                 |
+|   23993 | ROCm | refs/heads/ | amd-staging            | rocm-examples              | 2026-04-29T18:49:18Z | https://github.com/ROCm/rocm-examples              |
+|     689 | ROCm | refs/heads/ | main                   | jax-aiter                  | 2026-04-29T17:54:04Z | https://github.com/ROCm/jax-aiter                  |
+|     112 | ROCm | refs/heads/ | main                   | amd-anp                    | 2026-04-29T16:38:02Z | https://github.com/ROCm/amd-anp                    |
+|    3353 | ROCm | refs/heads/ | develop                | madengine                  | 2026-04-29T15:02:28Z | https://github.com/ROCm/madengine                  |
+|    4944 | ROCm | refs/heads/ | main                   | omnistat                   | 2026-04-29T11:19:29Z | https://github.com/ROCm/omnistat                   |
+|     559 | ROCm | refs/heads/ | develop                | rocHPCG                    | 2026-04-29T11:15:16Z | https://github.com/ROCm/rocHPCG                    |
+|     795 | ROCm | refs/heads/ | master                 | HIP-CPU                    | 2026-04-29T09:17:56Z | https://github.com/ROCm/HIP-CPU                    |
+|   15604 | ROCm | refs/heads/ | main                   | tritonBLAS                 | 2026-04-29T08:35:29Z | https://github.com/ROCm/tritonBLAS                 |
+|    7894 | ROCm | refs/heads/ | main                   | tensorcast                 | 2026-04-29T07:43:53Z | https://github.com/ROCm/tensorcast                 |
+
 Clone bundle sizes
 
 #+name: fetchMetadata
@@ -101,9 +235,54 @@ GET :gh-url-base/:gh-url-path
 | ROCm | DirectGMA_CL                |      15 | master                 | true  | 2025-03-23T01:02:53Z |
 
 #+NAME: rocmReposExclude
-| schemastore  |
-| transformers |
-| .github      |
+| schemastore          |
+| transformers         |
+| .github              |
+| composablekernel     |
+| hipBLAS              |
+| hipBLAS-common       |
+| hipBLASLt            |
+| hipCUB               |
+| hipDNN               |
+| hipFFT               |
+| hipRAND              |
+| hipSOLVER            |
+| hipSPARSE            |
+| hipSPARSELt          |
+| hipTensor            |
+| MIOpen               |
+| rocBLAS              |
+| rocFFT               |
+| rocPRIM              |
+| rocRAND              |
+| rocSOLVER            |
+| rocSPARSE            |
+| rocThrust            |
+| rocWMMA              |
+| amdsmi               |
+| aqlprofile           |
+| clr                  |
+| hip                  |
+| hipfile              |
+| hipother             |
+| hip-tests            |
+| rccl                 |
+| rdc                  |
+| rocdbgapi            |
+| rocdecode            |
+| rocjpeg              |
+| rocm-cor             |
+| rocminfo             |
+| rocmsmilib           |
+| rocprofiler          |
+| rocprofiler-compute  |
+| rocprofiler-register |
+| rocprofiler-sdk      |
+| rocprofiler-systems  |
+| rocr-debug-agent     |
+| rocrruntime          |
+| rocSHMEM             |
+| roctracer            |
 
 #+name: rocmRepos
 #+begin_src emacs-lisp :var nrepos=100 :results replace vector value :exports code :noweb yes
@@ -120,6 +299,7 @@ GET :gh-url-base/:gh-url-path
                           (defaultBranchRef prefix name)
                           url
                           updatedAt
+                          isFork
                           isArchived)))))))
 #+end_src
 
@@ -139,6 +319,7 @@ Filter the results, generate XML
       (mapcar (lambda (el) (a-get* el 'node)))
 
       ;; filter archived repos
+      (seq-filter (lambda (el) (not (a-get* el 'isFork))))
       (seq-filter (lambda (el) (not (a-get* el 'isArchived))))
 
       ;; filter repos in reposExclude list
