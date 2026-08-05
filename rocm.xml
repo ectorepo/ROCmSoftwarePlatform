@@ -4,6 +4,7 @@
   <project name="ROCm/aiter" path="aiter" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/amd-anp" path="amd-anp" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/amd_matrix_instruction_calculator" path="amd_matrix_instruction_calculator" revision="refs/heads/main" remote="github"/>
+  <project name="ROCm/amd-rocm-programming-guide" path="amd-rocm-programming-guide" revision="refs/heads/develop" remote="github"/>
   <project name="ROCm/amdgpu" path="amdgpu" revision="refs/heads/master" remote="github"/>
   <project name="ROCm/amdgpu-docs" path="amdgpu-docs" revision="refs/heads/develop" remote="github"/>
   <project name="ROCm/AMDMIGraphX" path="AMDMIGraphX" revision="refs/heads/develop" remote="github"/>
@@ -47,33 +48,35 @@
   <project name="ROCm/ROCdbgapi" path="ROCdbgapi" revision="refs/heads/amd-staging" remote="github"/>
   <project name="ROCm/ROCgdb" path="ROCgdb" revision="refs/heads/amd-staging" remote="github"/>
   <project name="ROCm/rocHPCG" path="rocHPCG" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCm/rocHPL" path="rocHPL" revision="refs/heads/main" remote="github"/>
+  <project name="ROCm/rockbuilder" path="rockbuilder" revision="refs/heads/main" remote="github"/>
+  <project name="ROCm/rockrel" path="rockrel" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/ROCm" path="ROCm" revision="refs/heads/develop" remote="github"/>
   <project name="ROCm/rocm-blogs" path="rocm-blogs" revision="refs/heads/release" remote="github"/>
   <project name="ROCm/ROCm-docker" path="ROCm-docker" revision="refs/heads/master" remote="github"/>
   <project name="ROCm/rocm-docs-core" path="rocm-docs-core" revision="refs/heads/develop" remote="github"/>
   <project name="ROCm/rocm-examples" path="rocm-examples" revision="refs/heads/amd-staging" remote="github"/>
   <project name="ROCm/rocm-install-on-linux" path="rocm-install-on-linux" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCm/rocm-install-on-windows" path="rocm-install-on-windows" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCm/rocm-installer-runfile" path="rocm-installer-runfile" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/rocm-jax" path="rocm-jax" revision="refs/heads/master" remote="github"/>
   <project name="ROCm/rocm-kpack" path="rocm-kpack" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/rocm-libraries" path="rocm-libraries" revision="refs/heads/develop" remote="github"/>
   <project name="ROCm/rocm-rag" path="rocm-rag" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/rocm-systems" path="rocm-systems" revision="refs/heads/develop" remote="github"/>
+  <project name="ROCm/rocm-xio" path="rocm-xio" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/rocm_bandwidth_test" path="rocm_bandwidth_test" revision="refs/heads/amd-mainline" remote="github"/>
   <project name="ROCm/rocMLIR" path="rocMLIR" revision="refs/heads/develop" remote="github"/>
   <project name="ROCm/rocmProfileData" path="rocmProfileData" revision="refs/heads/master" remote="github"/>
   <project name="ROCm/ROCmValidationSuite" path="ROCmValidationSuite" revision="refs/heads/master" remote="github"/>
   <project name="ROCm/rocprof-compute-viewer" path="rocprof-compute-viewer" revision="refs/heads/amd-mainline" remote="github"/>
-  <project name="ROCm/rocprof-trace-decoder" path="rocprof-trace-decoder" revision="refs/heads/amd-mainline" remote="github"/>
-  <project name="ROCm/rocPyDecode" path="rocPyDecode" revision="refs/heads/develop" remote="github"/>
   <project name="ROCm/ROCR-Runtime" path="ROCR-Runtime" revision="refs/heads/amd-staging_deprecated" remote="github"/>
   <project name="ROCm/rocr_debug_agent" path="rocr_debug_agent" revision="refs/heads/amd-staging" remote="github"/>
-  <project name="ROCm/rocSHMEM" path="rocSHMEM" revision="refs/heads/develop" remote="github"/>
-  <project name="ROCm/rocSPARSE" path="rocSPARSE" revision="refs/heads/develop_deprecated" remote="github"/>
   <project name="ROCm/rpp" path="rpp" revision="refs/heads/develop" remote="github"/>
-  <project name="ROCm/system-acceptance-docs" path="system-acceptance-docs" revision="refs/heads/main" remote="github"/>
-  <project name="ROCm/Tensile" path="Tensile" revision="refs/heads/develop_deprecated" remote="github"/>
-  <project name="ROCm/tensorflow-upstream" path="tensorflow-upstream" revision="refs/heads/develop-upstream" remote="github"/>
   <project name="ROCm/SPIRV-LLVM-Translator" path="SPIRV-LLVM-Translator" revision="refs/heads/amd-staging" remote="github"/>
+  <project name="ROCm/spur" path="spur" revision="refs/heads/main" remote="github"/>
+  <project name="ROCm/spur-cloud" path="spur-cloud" revision="refs/heads/main" remote="github"/>
+  <project name="ROCm/tensorcast" path="tensorcast" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/TheRock" path="TheRock" revision="refs/heads/main" remote="github"/>
   <project name="ROCm/TransferBench" path="TransferBench" revision="refs/heads/develop" remote="github"/>
   <project name="ROCm/TransformerEngine" path="TransformerEngine" revision="refs/heads/dev" remote="github"/>
